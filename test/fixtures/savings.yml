@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scheckdate: 2016-01-31
+  svalue: 1
+  sperson: 1
+  skindx: 1
+  skindy: 1
+  sfrom: MyString
+  snotice: MyString
+  sdiary: MyString
+  sdetail: MyText
+
+two:
+  scheckdate: 2016-01-31
+  svalue: 1
+  sperson: 1
+  skindx: 1
+  skindy: 1
+  sfrom: MyString
+  snotice: MyString
+  sdiary: MyString
+  sdetail: MyText

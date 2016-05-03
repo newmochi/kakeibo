@@ -1,0 +1,98 @@
+<%= form_for @income, :html => { :class => "form-horizontal income" } do |f| %>
+
+  <% if @income.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@income.errors.count, "error") %> prohibited this income from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @income.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :idate, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.date_field :idate, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:idate) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :ivalue, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :ivalue, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:ivalue) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :iorgvalue, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :iorgvalue, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:iorgvalue) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :iobject, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :iobject, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:iobject) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :iperson, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.select :iperson, $inperson_sel_m, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:iperson) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :ikindx, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.select :ikindx, grouped_options_for_select($inkindx_sel_m ,1),
+       :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:ikindx) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :ifrom, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :ifrom, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:ifrom) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :inotice, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :inotice, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:inotice) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :idiary, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :idiary, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:idiary) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :idetail, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_area :idetail, rows: 10, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:idetail) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                incomes_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

@@ -1,0 +1,99 @@
+
+<%- model_class = Expense -%>
+
+<div class="page-header">
+  <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h4>支出一覧　　
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_expense_path,
+            :class => 'btn btn-primary' %></h4>
+</div>
+
+
+<% content_for(:title) do %>
+  支出検索
+<% end %>
+
+<%= form_for(@expense, url: search_expenses_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+  <%= render 'search_form', f: f %>
+<% end %>
+
+
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th class=text-right>再利用</th>
+      <th class=text-right><%= model_class.human_attribute_name(:id) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exdate) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exvalue) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exextrasoutou) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:execosoutou) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exobject) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:experson) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exkindx) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exfrom) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exnotice) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:exdiary) %></th>
+<!--
+      <th><%# model_class.human_attribute_name(:exdetail) %></th>
+      <th><%# model_class.human_attribute_name(:created_at) %></th>
+-->
+      <th class=text-right><%=t '.actions_d', :default => t("helpers.actions_d") %></th>
+      <th class=text-right><%=t '.actions_m', :default => t("helpers.actions_m") %></th>
+      <th class=text-right><%=t '.actions_s', :default => t("helpers.actions_s") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @expenses.each do |expense| %>
+      <tr>
+        <td class=text-right>
+          <%= link_to "copy", [:copy, expense], method: :get, :class => 'btn btn-primary btn-xs' %>
+        </td>
+        <td class=text-right><%= link_to expense.id, expense_path(expense) %></td>
+        <td class=text-right><%= expense.exdate.try(:strftime, "%y/%m/%d ") %></td>
+        <td class=text-right>
+        <%= expense.exvalue.to_s(:delimited) if expense.exvalue != nil %>
+        </td>
+        <td class=text-right>
+        <%= expense.exextrasoutou.to_s(:delimited) if expense.exextrasoutou != nil %>
+        </td>
+        <td class=text-right>
+        <%= expense.execosoutou.to_s(:delimited) if expense.execosoutou != nil %>
+        </td>
+        <td class=text-right><%= truncate(expense.exobject, length: 8) %></td>
+        <td class=text-right><%= $experson_disp_m[expense.experson] %></td>
+        <td class=text-right><%= $exkindx_disp_m[expense.exkindx] %></td>
+        <td class=text-right><%= truncate(expense.exfrom, length: 8) %></td>
+        <td class=text-right><%= truncate(expense.exnotice, length: 8) %></td>
+        <td class=text-right><%= truncate(expense.exdiary, length: 8) %></td>
+<!--
+        <td><%# expense.exdetail %></td>
+        <td><%#l expense.created_at %></td>
+-->
+        <td class=text-right>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      expense_path(expense),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm',
+                      :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+        <td class=text-right>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_expense_path(expense), :class => 'btn btn-default btn-xs' %>
+        </td>
+        <td class=text-right>
+          <%= link_to t('.show_s', :default => t("helpers.links.show_s")),
+                      expense, :class => 'btn btn-primary btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate(@expenses) %>
+</div>
+<div class="well well-sm">(注) 再利用の項目で該当するcopyボタンを押しますと、日付以外の該当項目の値をコピーして新規作成ができます。</div>
+
+
+

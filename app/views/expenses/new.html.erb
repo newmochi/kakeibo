@@ -1,0 +1,138 @@
+<%- model_class = Expense -%>
+<div class="page-header">
+  <h4>支出一括登録 (注) 発生日を入力したレコードのみ登録されます。</h4>
+</div>
+<% content_for(:title) do %>
+  支出一括登録
+<% end %>
+
+
+
+<%= render 'errors', form: @form %>
+
+  <% @tmpselhash =
+  { " 0/食費" => [["0/食費" ,0]],
+  "10/被服費" => [["10/被服費" ,10]],
+  "20/生活費" => [["20/生活費" ,20], ["21/電気ガス器具" ,21], ["22/IT製品" ,22]],
+  "30/医療費" => [["30/医療費" ,30], ["31/化粧品" ,31]],
+  "40/電気ガス水道" => [["40/電気" ,40], ["41/ガス" ,41], ["42/水道" ,42],
+    ["43/電話" ,43], ["44/携帯電話" ,44]],
+  "50/教育費" => [["50/教育費" ,50], ["51/仕送り" ,51]],
+  "60/交際費" => [["60/交際費" ,60]],
+  "70/娯楽費" => [["70/娯楽費" ,70], ["71/交通費" ,71], ["72/旅行費" ,72],
+    ["73/ガソリン代" ,73]],
+  "80/車両費" => [["80/車両費" ,80]],
+  "その他" => [["90/特別費" ,90], ["91/税金保険料" ,91]]
+  } %>
+
+
+
+
+<%= form_for(@form, url: expenses_path, method: :post) do |fb| %>
+<div class="form-group">
+<div class="row">
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed">
+<thead>
+  <tr>
+<%#    <th width="60px">登録</th>  %>
+
+<th class="col-xs-1 col-ms-1 col-md-1 col-lg-1" rel="tooltip" 
+       data-toggle="tooltip" data-placement="top"
+       title="IE Firefoxの場合、YYYY-MM-DDで入力願います。ChromeならGUIでOKですが。"
+       data-original-title="Tooltip on left">
+<%= model_class.human_attribute_name(:exdate) %></th>
+<th class="col-xs-1 col-ms-1 col-md-1 col-lg-1">
+<%= model_class.human_attribute_name(:exvalue) %></th>
+
+<th class="col-xs-1 col-ms-1 col-md-1 col-lg-1" rel="tooltip" 
+       data-toggle="tooltip" data-placement="top"
+       title="一般的適正額より贅沢したら、贅沢した額を想定で入力ください。"
+       data-original-title="Tooltip on left">
+<%= model_class.human_attribute_name(:exextrasoutou) %></th>
+
+<th class="col-xs-1 col-ms-1 col-md-1 col-lg-1" rel="tooltip" 
+       data-toggle="tooltip" data-placement="top"
+       title="一般的適正額より偶然でも故意でも節約できた額を想定で入力ください。"
+       data-original-title="Tooltip on left">
+<%= model_class.human_attribute_name(:execosoutou) %></th>
+
+<th class="col-xs-2 col-ms-2 col-md-2 col-lg-2" rel="tooltip" 
+       data-toggle="tooltip" data-placement="top"
+       title="品名、額に対応した物またはサービス、その他"
+       data-original-title="Tooltip on left">
+<%= model_class.human_attribute_name(:exobject) %></th>
+
+<th class="col-xs-1 col-ms-1 col-md-1 col-lg-1" rel="tooltip" 
+       data-toggle="tooltip" data-placement="top"
+       title="0:家族 8:夫 9:妻 1:第1子 2:第2子 3:第3子 4:第4子 "
+       data-original-title="Tooltip on left">
+<%= model_class.human_attribute_name(:experson) %></th>
+
+<th class="col-xs-1 col-ms-1 col-md-1 col-lg-1">
+<%= model_class.human_attribute_name(:exkindx) %></th>
+
+<th class="col-xs-2 col-ms-2 col-md-2 col-lg-2" rel="tooltip" 
+       data-toggle="tooltip" data-placement="top"
+       title="ホテル名を入れると良いかもしれません。"
+       data-original-title="Tooltip on left">
+<%= model_class.human_attribute_name(:exfrom) %></th>
+
+<th class="col-xs-2 col-ms-2 col-md-2 col-lg-2" rel="tooltip" 
+       data-toggle="tooltip" data-placement="top"
+       title="旅行その他で教訓となる、後で参照すべきものはその概要を書きましょう。詳細ログは日記、日記概要に書きましょう。"
+       data-original-title="Tooltip on left">
+<%= model_class.human_attribute_name(:exnotice) %></th>
+
+  </tr>
+</thead>
+<tbody class="bulk-registration-form">
+<%= fb.fields_for :expenses do |f| %>
+  <tr class="item">
+<%#  <td class="text-center"> %>
+  <%#= f.check_box :register, class: 'top10 registration-checkbox' %>
+<%#  </td> %>
+  <td>
+  <%= f.date_field :exdate, class: 'form-control input-sm' %>
+  </td>
+  <td>
+  <%= f.number_field :exvalue, class: 'form-control input-sm' %>
+  </td>
+  <td>
+  <%= f.number_field :exextrasoutou, :value => 0, class: 'form-control input-sm' %>
+  </td>
+  <td>
+  <%= f.number_field :execosoutou, :value => 0, class: 'form-control input-sm' %>
+  </td>
+  <td>
+  <%= f.text_field :exobject, class: 'form-control input-sm' %>
+  </td>
+  <td>
+
+  <%= f.select :experson, $experson_sel_m, class: 'form-control input-sm' %>
+  </td>
+
+  <td>
+<%= f.select :exkindx, grouped_options_for_select($exkindx_sel_m ,1), class: 'form-control input-sm' %>
+  </td>
+
+  <td>
+  <%= f.text_field :exfrom, class: 'form-control input-sm' %>
+  </td>
+  <td>
+  <%= f.text_field :exnotice, class: 'form-control input-sm' %>
+  </td>
+</tr>
+<% end %>
+</tbody>
+</table>
+</div> 
+<div class="text-center">
+<%= fb.submit '一括登録', class: 'btn btn-primary' %>
+</div><!-- /table-responsive -->
+</div><!-- /row -->
+</div><!-- /form-group -->
+<% end %>
+
+
+

@@ -1,0 +1,88 @@
+<%- model_class = Income -%>
+<div class="page-header">
+  <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h4>収入一覧　　
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_income_path,
+            :class => 'btn btn-primary' %></h4>
+</div>
+
+<% content_for(:title) do %>
+  収入検索
+<% end %>
+
+<%= form_for(@income, url: search_incomes_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+  <%= render 'search_form', f: f %>
+<% end %>
+
+
+
+
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th class=text-right>再利用</th>
+      <th class=text-right><%= model_class.human_attribute_name(:id) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:idate) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:ivalue) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:iorgvalue) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:iobject) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:iperson) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:ikindx) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:ikindy) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:ifrom) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:inotice) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:idiary) %></th>
+<!--
+      <th class=text-right><%# model_class.human_attribute_name(:idetail) %></th>
+      <th class=text-right><%# model_class.human_attribute_name(:created_at) %></th>
+-->
+      <th class=text-right><%=t '.actions_d', :default => t("helpers.actions_d") %></th>
+      <th class=text-right><%=t '.actions_m', :default => t("helpers.actions_m") %></th>
+      <th class=text-right><%=t '.actions_s', :default => t("helpers.actions_s") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @incomes.each do |income| %>
+      <tr>
+        <td class=text-right>
+          <%= link_to "copy", [:copy, income], method: :get, :class => 'btn btn-primary btn-xs' %>
+        </td>
+        <td class=text-right><%= link_to income.id, income_path(income) %></td>
+        <td class=text-right><%= income.idate.try(:strftime, "%y/%m/%d ") %></td>
+        <td class=text-right><%= income.ivalue.to_s(:delimited) if income.ivalue != nil %></td>
+        <td class=text-right><%= income.iorgvalue.to_s(:delimited) if income.iorgvalue != nil %></td>
+        <td class=text-right><%= income.iobject %></td>
+        <td class=text-right><%= $inperson_disp_m[income.iperson] %></td>
+        <td class=text-right><%= $inkindx_disp_m[income.ikindx] %></td>
+        <td class=text-right><%= income.ikindy %></td>
+        <td class=text-right><%= truncate(income.ifrom, length: 8) %></td>
+        <td class=text-right><%= truncate(income.inotice, length: 8) %></td>
+        <td class=text-right><%= truncate(income.idiary, length: 8) %></td>
+<!--
+        <td class=text-right><%# income.idetail %></td>
+        <td class=text-right><%#l income.created_at %></td>
+-->
+        <td class=text-right>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      income_path(income),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+        <td class=text-right>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_income_path(income), :class => 'btn btn-default btn-xs' %>
+        </td>
+        <td class=text-right>
+          <%= link_to t('.show_s', :default => t("helpers.links.show_s")),
+                      income, :class => 'btn btn-primary btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate(@incomes) %>
+</div>
+<div class="well well-sm">(注) 再利用の項目で該当するcopyボタンを押しますと、日付以外の該当項目の値をコピーして新規作成ができます。</div>

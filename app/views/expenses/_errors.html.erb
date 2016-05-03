@@ -1,0 +1,16 @@
+<% if form.expenses.any? { |expense| expense.errors.present? } %>
+  <div class="alert alert-danger">
+    <% form.expenses.each.with_index(1) do |expense, idx| %>
+      <% if expense.errors.present? %>
+      <ul>
+      <li><%= "#{idx}行目のレコードが不正です。" %></li>
+      <ul>
+        <% expense.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+      </ul>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

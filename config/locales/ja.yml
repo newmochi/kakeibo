@@ -1,0 +1,104 @@
+ja:
+  activerecord:
+    models:
+      expense: "支出"
+      income: "収入"
+      saving: "貯蓄"
+      saverecord: "貯蓄履歴"
+    attributes:
+      expense:
+        exdate: 発生日
+        exvalue: 額(円)
+        experson: 誰向
+        exkindx: 分類1
+        exkindy: 分類2
+        exfrom: 支払先
+        exnotice: 重要事項
+        exdiary: 日記
+        exdetail: 日記詳細
+        exextrasoutou: 贅沢額
+        execosoutou: 節約額
+        exobject: 対象名
+      income:
+        idate: 発生日
+        ivalue: 額(円)
+        iorgvalue: 税引前(円)
+        iperson: 入手者
+        ikindx: 分類1
+        ikindy: 分類2
+        ifrom: 収入源
+        inotice: 重要事項
+        idiary: 日記
+        idetail: 日記詳細
+        iobject: 対象名
+      saving:
+        scheckdate: 発生日
+        svalue: 額(円)
+        sperson: 所有者
+        skindx: 分類1
+        skindy: 分類2
+        sfrom: 保管先
+        snotice: 重要事項
+        sdiary: 日記
+        sdetail: 日記詳細
+        sobject: 対象名
+      saverecord:
+        srnowdate: 確認日
+        srnowvalue: 額(円)
+        srnownotice: 最新事項
+        srnowdiary: 日記
+        srnowdetail: 日記詳細
+        srnextdate: 次確認要日
+
+    errors:
+      messages:
+        invalid_member_name: "（これはないかな）は半角英数字で入力してください（_も使えます）。"
+
+  display_m:
+    expense_m:
+      exdate_m: 発生日
+      exvalue_m: 支出金額（円）
+      experson_m: 誰向の出費
+      exkindx_m: 支出分類1
+      exkindy_m: 支出分類2(任意)
+      exfrom_m: 支払先、店名その他
+      exnotice_m: 支出上重要事項
+      exdiary_m: 日記概要
+      exdetail_m: 日記詳細
+      exextrasoutou_m: 贅沢支出相当額（円）
+      execosoutou_m: 節約支出相当額（円）
+      exobject_m: 対象名
+    income_m:
+      idate_m: 発生日
+      ivalue_m: 収入金額（円）
+      iorgvalue_m: 税引き前等収入（円）
+      iperson_m: 誰の収入
+      ikindx_m: 収入分類1
+      ikindy_m: 収入分類2(任意)
+      ifrom_m: 支払先、店名その他
+      inotice_m: 支出上重要事項
+      idiary_m: 日記概要
+      idetail_m: 日記詳細
+      iobject_m: 対象名
+    saving_m:
+      scheckdate_m: 確認日(snapshot)
+      svalue_m: 金額（円）
+      sperson_m: 誰の貯蓄
+      skindx_m: 貯蓄分類1
+      skindy_m: 貯蓄分類2(任意)
+      sfrom_m: 保管先、店名その他
+      snotice_m: 貯蓄上重要事項
+      sdiary_m: 日記概要
+      sdetail_m: 日記詳細
+      sobject_m: 対象名
+    saverecord_m:
+      saving_id_m: 貯蓄(資産)マスター：ID
+      saving_object_m: 同：名称
+      saving_sfrom_m: 同：保管先
+      srnowdate_m: 確認日
+      srnowvalue_m: 確認日金額（円）
+      srnownotice_m: 貯蓄確認日重要事項
+      srnowdiary_m: 貯蓄確認日日記概要
+      srnowdetail_m: 貯蓄確認日日記詳細
+      srnextdate_m: 次回確認要日
+

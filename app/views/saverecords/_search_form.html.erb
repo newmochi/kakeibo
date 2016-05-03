@@ -1,0 +1,52 @@
+<%= render layout: 'shared/search_box' do %>
+
+<div class="row">
+
+  <div class="col-sm-4">
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">発生日～</label>
+      <div class="col-sm-7">
+        <%= f.date_field :fromdate, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+
+
+ 
+
+  </div>
+
+  <div class="col-sm-4">
+
+     <div class="form-group">
+      <label class="col-sm-5 control-label" for="">～発生日</label>
+      <div class="col-sm-7">
+        <%= f.date_field :todate, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-4">
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">資産(円)～</label>
+      <div class="col-sm-7">
+        <%= f.number_field :fromvalue, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="col-sm-12 row text-center">
+  <%= link_to saverecords_path, class: 'btn btn-default btn-sm btn-left' do %>クリア<% end %>
+  <button class="btn btn-default btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 検索</button>
+</div>
+
+
+
+<% end %>

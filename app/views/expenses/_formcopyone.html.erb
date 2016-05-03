@@ -1,0 +1,107 @@
+<%= form_for @expense, url: createone_expense_path(@expense), method: :post, :html => { :class => "form-horizontal expense" } do |f| %>
+
+  <% if @expense.errors.any? %>
+
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @expense.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :exdate, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.date_field :exdate, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exdate) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exvalue, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :exvalue, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exvalue) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exextrasoutou, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :exextrasoutou, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exextrasoutou) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :execosoutou, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :execosoutou, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:execosoutou) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exobject, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :exobject, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exobject) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :experson, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%#= f.select :experson, $aaaaa, :class => 'form-control input-sm' %>
+      <%=  f.select :experson, $experson_sel_m, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:experson) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exkindx, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.select :exkindx, grouped_options_for_select($exkindx_sel_m ,1),
+       :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exkindx) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exfrom, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :exfrom, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exfrom) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exnotice, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :exnotice, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exnotice) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exdiary, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :exdiary, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exdiary) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exdetail, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_area :exdetail, rows: 10, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:exdetail) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                expenses_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

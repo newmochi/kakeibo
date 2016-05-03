@@ -1,0 +1,87 @@
+<%= render layout: 'shared/search_box' do %>
+
+<div class="row">
+
+  <div class="col-sm-4">
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">発生日～</label>
+      <div class="col-sm-7">
+        <%= f.date_field :fromdate, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">～発生日</label>
+      <div class="col-sm-7">
+        <%= f.date_field :todate, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">支出(円)～</label>
+      <div class="col-sm-7">
+        <%= f.number_field :fromvalue, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-4">
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">分類1～</label>
+      <div class="col-sm-7">
+        <%= f.select :fromkindx,
+        grouped_options_for_select($exkindx_sel_m ,selected_key = $exkindx_disp_m.keys.min),
+        class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+   <div class="form-group">
+      <label class="col-sm-5 control-label" for="">～分類1</label>
+      <div class="col-sm-7">
+        <%= f.select :tokindx,
+        grouped_options_for_select($exkindx_sel_m ,selected_key = $exkindx_disp_m.keys.max),
+         class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">誰向</label>
+      <div class="col-sm-7">
+        <%= f.number_field :experson, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-4">
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">支払先</label>
+      <div class="col-sm-7">
+        <%= f.text_field :exfrom, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-5 control-label" for="">対象名</label>
+      <div class="col-sm-7">
+        <%= f.text_field :exobject, class: 'form-control input-sm' %>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="col-sm-12 row text-center">
+  <%= link_to expenses_path, class: 'btn btn-default btn-sm btn-left' do %>クリア<% end %>
+  <button class="btn btn-default btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 検索</button>
+</div>
+
+
+
+<% end %>

@@ -1,0 +1,95 @@
+<%- model_class = Saving -%>
+<div class="page-header">
+  <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h4>資産マスター一覧　　
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_saving_path,
+            :class => 'btn btn-primary' %></h4>
+</div>
+
+<% content_for(:title) do %>
+  貯蓄(資産)検索(最新金額履歴表示付)
+<% end %>
+
+<%= form_for(@saving, url: search_savings_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+  <%= render 'search_form', f: f %>
+<% end %>
+
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th class=text-right><%= model_class.human_attribute_name(:id) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:scheckdate) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:svalue) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:sobject) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:sperson) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:skindx) %></th>
+      <th class=text-right><%= model_class.human_attribute_name(:sfrom) %></th>
+      <th class=text-right>最新額</th>
+      <th class=text-right>同日付</th>
+      <th class=text-right><%=t '.actions_d', :default => t("helpers.actions_d") %></th>
+      <th class=text-right><%=t '.actions_m', :default => t("helpers.actions_m") %></th>
+      <th class=text-right><%=t '.actions_s', :default => t("helpers.actions_s") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%# 額の集計用 total_amount %>
+    <% total_amount = 0 %>
+    <% @savings.each do |sa| %>
+      <tr>
+        <td class=text-right><%= link_to sa.id, saving_path(sa) %></td>
+        <td class=text-right><%= sa.scheckdate.try(:strftime, "%y/%m/%d ") %></td>
+        <td class=text-right><%= sa.svalue.to_s(:delimited) if sa.svalue != nil %></td>
+        <td class=text-right><%= sa.sobject %></td>
+        <td class=text-right><%= $saperson_disp_m[sa.sperson] %></td>
+        <td class=text-right><%= $sakindx_disp_m[sa.skindx] %></td>
+        <td class=text-right><%= truncate(sa.sfrom, length: 8) %></td>
+
+        <td class=text-right>
+          <%# sa.saverecords.each do |sb| %>
+            <%#= sb.srnowvalue %>
+          <%# end %>
+          <%  if sa.saverecords.present? %>
+            <% tmpsr = sa.saverecords.order( srnowdate: :desc ) %>
+            <% total_amount = total_amount + tmpsr[0].srnowvalue if tmpsr[0].srnowvalue != nil %>
+            <%= tmpsr[0].srnowvalue.to_s(:delimited, delimiter: ',') if tmpsr[0].srnowvalue != nil %>
+            </td>
+            <td class=text-right>
+<%#  binding.pry %>
+            <%= tmpsr[0].srnowdate.try(:strftime, "%y/%m/%d ") %>
+          <% else %>
+            <%= sa.svalue.to_s(:delimited) if sa.svalue != nil %>
+            <% total_amount = total_amount + sa.svalue if sa.svalue != nil %>
+            </td><td class=text-right>
+          <% end %>
+        </td>
+
+        <td class=text-right>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      saving_path(sa),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+        <td class=text-right>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_saving_path(sa), :class => 'btn btn-default btn-xs' %>
+        </td>
+        <td class=text-right>
+          <%= link_to t('.show_s', :default => t("helpers.links.show_s")),
+                      sa, :class => 'btn btn-primary btn-xs' %>
+        </td>
+      </tr>
+
+    <% end %>
+    <td colspan="7">最新額小計</td>
+    <td class=text-right><%= total_amount.to_s(:delimited) if total_amount != nil %>
+    </td>
+    <td></td>
+    <td colspan="3">(注)日付なしはマスター額を利用</td>
+  </tbody>
+</table>
+<%= paginate(@savings) %>
+</div>
+<div class="well well-sm">(注) 最新額は、貯蓄(資産)履歴に登録された最新日付の金額を引用しています。</div>

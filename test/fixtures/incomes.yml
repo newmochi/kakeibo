@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idate: 2016-01-31
+  ivalue: 1
+  iorgvalue: 1
+  iperson: 1
+  ikindx: 1
+  ikindy: 1
+  ifrom: MyString
+  inotice: MyString
+  idiary: MyString
+  idetail: MyText
+
+two:
+  idate: 2016-01-31
+  ivalue: 1
+  iorgvalue: 1
+  iperson: 1
+  ikindx: 1
+  ikindy: 1
+  ifrom: MyString
+  inotice: MyString
+  idiary: MyString
+  idetail: MyText

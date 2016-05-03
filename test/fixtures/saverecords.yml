@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  saving_id: 
+  srnowdate: 2016-02-27
+  srnowvalue: 1
+  srnownotice: MyString
+  srnowdiary: MyString
+  srnowdetail: MyText
+  srnextdate: 2016-02-27
+
+two:
+  saving_id: 
+  srnowdate: 2016-02-27
+  srnowvalue: 1
+  srnownotice: MyString
+  srnowdiary: MyString
+  srnowdetail: MyText
+  srnextdate: 2016-02-27

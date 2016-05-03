@@ -1,0 +1,91 @@
+<%= form_for @saving, :html => { :class => "form-horizontal saving" } do |f| %>
+
+  <% if @saving.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@saving.errors.count, "error") %> prohibited this saving from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @saving.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :scheckdate, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.date_field :scheckdate, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:scheckdate) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :svalue, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.number_field :svalue, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:svalue) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sobject, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :sobject, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:sobject) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sperson, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.select :sperson, $saperson_sel_m, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:sperson) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :skindx, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.select :skindx, grouped_options_for_select($sakindx_sel_m ,1),
+       :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:skindx) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sfrom, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :sfrom, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:sfrom) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :snotice, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :snotice, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:snotice) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sdiary, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_field :sdiary, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:sdiary) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sdetail, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.text_area :sdetail, rows: 10, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:sdetail) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                savings_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

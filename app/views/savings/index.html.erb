@@ -1,0 +1,16 @@
+<%- model_class = Saving -%>
+<div class="page-header">
+  <h1><%#=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h4>資産マスター一覧　　
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_saving_path,
+            :class => 'btn btn-primary' %></h4>
+</div>
+
+<% content_for(:title) do %>
+  貯蓄(資産)検索(最新金額履歴表示付)
+<% end %>
+
+<%= form_for(@saving, url: search_savings_path, html: { method: :get, class: 'form-horizontal', role: 'form' }) do |f| %>
+  <%= render 'search_form', f: f %>
+<% end %>

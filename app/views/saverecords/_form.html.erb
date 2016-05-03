@@ -1,0 +1,79 @@
+<%= form_for @saverecord, :html => { :class => "form-horizontal saverecord" } do |f| %>
+
+  <% if @saverecord.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@saverecord.errors.count, "error") %> prohibited this saverecord from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @saverecord.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%#= f.label :saving_id, :class => 'control-label col-sm-3' %>
+    <%= f.label "貯蓄(資産)マスター [ID:名称:保管先]", :class => 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+
+      <%= f.collection_select( :saving_id, @sv, :id, :sa3, :class => 'form-control input-sm') %>
+    </div>
+    <%=f.error_span(:saving_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :srnowdate, :class => 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= f.date_field :srnowdate, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:srnowdate) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :srnowvalue, :class => 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= f.number_field :srnowvalue, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:srnowvalue) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :srnownotice, :class => 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= f.text_field :srnownotice, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:srnownotice) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :srnowdiary, :class => 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= f.text_field :srnowdiary, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:srnowdiary) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :srnowdetail, :class => 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= f.text_area :srnowdetail, rows: 10, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:srnowdetail) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :srnextdate, :class => 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= f.date_field :srnextdate, :class => 'form-control input-sm' %>
+    </div>
+    <%=f.error_span(:srnextdate) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                saverecords_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
+<div class="well well-sm">(注) 修正時、貯蓄マスターの選択を変更しますと、マスターと履歴の関連の変更となります。</div>

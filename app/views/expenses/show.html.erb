@@ -1,0 +1,42 @@
+<%- model_class = Expense -%>
+<div class="page-header">
+  <h4><%=t '.title', :default => model_class.model_name.human.titleize %></h4>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= t('display_m.expense_m.exdate_m') %>:</strong></dt>
+  <dd><%= @expense.exdate %></dd>
+  <dt><strong><%= t('display_m.expense_m.exvalue_m') %>:</strong></dt>
+  <dd><%= @expense.exvalue.to_s(:delimited, delimiter: ',') if @expense.exvalue != nil %></dd>
+  <dt><strong><%= t('display_m.expense_m.exextrasoutou_m') %>:</strong></dt>
+  <dd><%= @expense.exextrasoutou.to_s(:delimited) if @expense.exextrasoutou != nil %></dd>
+  <dt><strong><%= t('display_m.expense_m.execosoutou_m') %>:</strong></dt>
+  <dd><%= @expense.execosoutou.to_s(:delimited) if @expense.execosoutou != nil %></dd>
+  <dt><strong><%= t('display_m.expense_m.exobject_m') %>:</strong></dt>
+  <dd><%= @expense.exobject %></dd>
+  <dt><strong><%= t('display_m.expense_m.experson_m') %>:</strong></dt>
+  <dd><%= $experson_disp_m[@expense.experson] %></dd>
+  <dt><strong><%= t('display_m.expense_m.exkindx_m' ) %>:</strong></dt>
+  <dd><%= $exkindx_disp_m[@expense.exkindx] %></dd>
+  <dt><strong><%= t('display_m.expense_m.exkindy_m' ) %>:</strong></dt>
+  <dd><%= @expense.exkindy %></dd>
+  <dt><strong><%= t('display_m.expense_m.exfrom_m' ) %>:</strong></dt>
+  <dd><%= @expense.exfrom %></dd>
+  <dt><strong><%= t('display_m.expense_m.exnotice_m' ) %>:</strong></dt>
+  <dd><%= @expense.exnotice %></dd>
+  <dt><strong><%= t('display_m.expense_m.exdiary_m' ) %>:</strong></dt>
+  <dd><%= @expense.exdiary %></dd>
+  <dt><strong><%= t('display_m.expense_m.exdetail_m' ) %>:</strong></dt>
+  <dd><%= @expense.exdetail %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              expenses_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_expense_path(@expense), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              expense_path(@expense),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+<%= link_to "copyして再利用(新規登録)", [:copy, @expense], method: :get, :class => 'btn btn-primary btn-default' %>
